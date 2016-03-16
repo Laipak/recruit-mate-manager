@@ -54,7 +54,10 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => [
+        'address' => env('SENDER_ADDRESS', 'donotreply@admin.sh'), 
+        'name' => env('SENDER_NAME', 'postmaster')
+    ],
 
     /*
     |--------------------------------------------------------------------------
