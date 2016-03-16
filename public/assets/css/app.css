@@ -30,6 +30,9 @@ body {
 	margin-top: 0;
 	margin-bottom: 0;
 }
+.uppercased {
+	text-transform: uppercase !important;
+}
 
 /* Custom styles */
 #setting-button {
