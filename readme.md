@@ -14,14 +14,9 @@ Laravel is accessible, yet powerful, providing powerful tools needed for large, 
 
 Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Mail Setup Guide
+	- In order to send emails to the applicants, a Gmail account is required.
+	- Please visit http://learninglaravel.net/learn-to-send-emails-using-gmail-and-sendgrid-in-laravel-5.
+	- Check the section "Sending emails using Gmail" to learn how to setup your email.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
