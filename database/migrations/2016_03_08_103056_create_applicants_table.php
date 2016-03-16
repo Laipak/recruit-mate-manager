@@ -30,7 +30,7 @@ class CreateApplicantsTable extends Migration
             $table->float('gpa')->nullable();
             $table->string('course_type')->nullable();
             $table->date('expected_start_date')->nullable();
-            $table->string('course_of_interest_1');
+            $table->string('course_of_interest_1')->nullable();
             $table->string('course_of_interest_2')->nullable();
             $table->string('course_of_interest_3')->nullable();
             $table->string('device_name')->nullable();
