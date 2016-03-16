@@ -24,12 +24,24 @@ class Applicant extends Model
         'gpa',
         'course_type',
         'expected_start_date',
-        'course_of_interest_1',
-        'course_of_interest_2',
-        'course_of_interest_3',
         'device_name',
         'is_emailed',
         'is_exported',
         'registered_at',
     ];
+
+    public function course1()
+    {
+        return $this->hasOne(DepartmentCourse::class, 'id', 'course_of_interest_1');
+    }
+
+    public function course2()
+    {
+        return $this->hasOne(DepartmentCourse::class, 'id', 'course_of_interest_2');
+    }
+
+    public function course3()
+    {
+        return $this->hasOne(DepartmentCourse::class, 'id', 'course_of_interest_3');
+    }
 }

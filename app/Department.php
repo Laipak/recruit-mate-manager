@@ -20,6 +20,6 @@ class Department extends Model
 
     public function courses()
     {
-        return $this->hasMany('DepartmentCourse');
+        return $this->hasMany(DepartmentCourse::class);
     }
 }

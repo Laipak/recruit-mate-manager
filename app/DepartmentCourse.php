@@ -17,8 +17,8 @@ class DepartmentCourse extends Model
         return $this->name;
     }
 
-    public function deparment()
+    public function department()
     {
-        return $this->belongsTo('Department');
+        return $this->belongsTo(Department::class);
     }
 }
