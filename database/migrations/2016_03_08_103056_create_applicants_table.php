@@ -29,7 +29,7 @@ class CreateApplicantsTable extends Migration
             $table->string('english_proficiency');
             $table->float('gpa')->nullable();
             $table->string('course_type')->nullable();
-            $table->string('expected_start_date')->nullable();
+            $table->date('expected_start_date')->nullable();
             $table->string('course_of_interest_1');
             $table->string('course_of_interest_2')->nullable();
             $table->string('course_of_interest_3')->nullable();
@@ -37,7 +37,7 @@ class CreateApplicantsTable extends Migration
             $table->string('enquiry')->nullable();
             $table->boolean('is_emailed')->default(0);
             $table->boolean('is_exported')->default(0);
-            $table->string('registered_at')->nullable();
+            $table->date('registered_at')->nullable();
 
             $table->timestamps();
         });
