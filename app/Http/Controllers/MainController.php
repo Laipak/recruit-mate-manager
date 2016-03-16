@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\DepartmentCourse as Course;
 use App\Applicant;
 use App\Import;
 use App\Services\Operator;
@@ -173,8 +174,13 @@ class MainController extends Controller
     {
         Applicant::query()->delete();
 
-        if ($request->all_reset) {
+        if ($request->reset_import) {
             Import::query()->delete();
+        }
+
+        if ($request->reset_dept) {
+            Department::query()->delete();
+            Course::query()->delete();
         }
 
         Session::flash('success', 'All records has been removed from the database');
