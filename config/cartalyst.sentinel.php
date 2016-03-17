@@ -53,7 +53,7 @@ return [
 
     'users' => [
 
-        'model' => 'Cartalyst\Sentinel\Users\EloquentUser',
+        'model' => 'App\User',
 
     ],
 
@@ -68,7 +68,7 @@ return [
 
     'roles' => [
 
-        'model' => 'Cartalyst\Sentinel\Roles\EloquentRole',
+        'model' => 'App\Role',
 
     ],
 
