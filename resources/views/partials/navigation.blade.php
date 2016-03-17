@@ -21,7 +21,11 @@
   <div class="right menu">
     <div class="ui dropdown item">
       Hello, {{ Sentinel::getUser() }}
-      
+      @if (Sentinel::inRole('admin'))
+        <div class="ui small blue horizontal compact label">
+          Admin
+        </div>
+      @endif
       <i class="dropdown icon"></i>
       <div class="menu">
         <a href="{{ route('setting') }}" class="item">

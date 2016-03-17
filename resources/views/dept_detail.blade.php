@@ -20,19 +20,23 @@
             {!! Form::open(['route' => ['dept_update', $dept->id], 'class' => 'ui form']) !!}
               <div class="field">
                 <label>Email</label>
-                <div class="ui left icon input">
+                <div class="ui left icon input {{ !Sentinel::inRole('admin') ? 'transparent disabled' : '' }}">
                   <i class="at icon"></i>
                   {!! Form::email('email', $dept->email, ['placeholder' => 'Department email']) !!}
                 </div>
               </div>
-              <div class="right aligned field">
-                <button class="ui small compact blue button">Update Email</button>
-              </div>
+              @if (Sentinel::inRole('admin'))
+                <div class="right aligned field">
+                  <button class="ui small compact blue button">Update Email</button>
+                </div>
+              @endif
             {!! Form::close() !!}
           </div>
-          <div id="close-dept-btn" class="ui large basic extra button">
-            Close department
-          </div>
+          @if (Sentinel::inRole('admin'))
+            <div id="close-dept-btn" class="ui large basic extra button">
+              Close department
+            </div>
+          @endif
         </div>
       </div>
       <div class="ten wide column">
@@ -40,10 +44,12 @@
           <div class="ui left floated header">
             Courses ({{ $dept->courses->count() }})
           </div>
-          <div id="create-course-btn" class="ui right floated compact teal icon labeled button">
-            <i class="plus icon"></i>
-            Create New Course
-          </div>
+          @if (Sentinel::inRole('admin'))
+            <div id="create-course-btn" class="ui right floated compact teal icon labeled button">
+              <i class="plus icon"></i>
+              Create New Course
+            </div>
+          @endif
         </div>
         <div class="ui bottom attached segment" style="padding: 0">
           <table class="ui very basic striped table">
@@ -54,12 +60,14 @@
                     {{ $course }}
                   </td>
                   <td class="right aligned">
-                    <div class="ui blue update course compact icon button" data-content="Edit" data-variation="inverted" data-position="left center" data-id="{{ $course->id }}" data-name="{{ $course }}">
-                      <i class="write icon"></i>
-                    </div>
-                    <div class="ui red remove course compact icon button" data-content="Remove" data-variation="inverted" data-position="right center" data-id="{{ $course->id }}" data-name="{{ $course }}">
-                      <i class="trash icon"></i>
-                    </div>
+                    @if (Sentinel::inRole('admin'))
+                      <div class="ui blue update course compact icon button" data-content="Edit" data-variation="inverted" data-position="left center" data-id="{{ $course->id }}" data-name="{{ $course }}">
+                        <i class="write icon"></i>
+                      </div>
+                      <div class="ui red remove course compact icon button" data-content="Remove" data-variation="inverted" data-position="right center" data-id="{{ $course->id }}" data-name="{{ $course }}">
+                        <i class="trash icon"></i>
+                      </div>
+                    @endif
                   </td>
                 </tr>
               @empty

@@ -11,10 +11,12 @@
           Department list
         </div>
       </div>
-      <div id="create-dept-btn" class="ui right floated teal icon labeled button">
-        <i class="add icon"></i>
-        Create new department
-      </div>
+      @if (Sentinel::inRole('admin'))
+        <div id="create-dept-btn" class="ui right floated teal icon labeled button">
+          <i class="add icon"></i>
+          Create new department
+        </div>
+      @endif
     </div>
     <div class="ui segment" style="padding: 0">
       <table class="ui padded table" style="border: none">
