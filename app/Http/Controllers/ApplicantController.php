@@ -17,6 +17,8 @@ class ApplicantController extends Controller
 
     public function index(Request $request)
     {
+        $departments = Department::with('courses')->get();
+
         // Setup model query builder
         $query = Applicant::query();
 
@@ -32,7 +34,8 @@ class ApplicantController extends Controller
 
         // Query for specific department if exist
         if ($request->has('department')) {
-            $depts = \Config::get('hook.courses.'.$request->department);
+            $depts = Department::find($request->department);
+            $depts = $depts->courses()->lists('id')->toArray();
             
             $query->where(function ($q) use ($depts) {
                 $q->whereIn('course_of_interest_1', $depts)
@@ -52,7 +55,8 @@ class ApplicantController extends Controller
         }
 
         $applicants = $query->get();
-        return view('applicant', compact('applicants'));
+
+        return view('applicant', compact(['applicants', 'departments']));
     }
 
     public function postProcess(Request $request)
@@ -78,10 +82,6 @@ class ApplicantController extends Controller
                 } else {
                     Session::flash('error', 'Emails not sent, please try again');
                 }
-                break;
-            
-            default:
-                # code...
                 break;
         }
 
