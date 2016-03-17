@@ -71,43 +71,11 @@ class MainController extends Controller
         return back();
     }
 
-    public function postLogin(Request $request)
-    {
-        if (!$request->has('username') || !$request->has('password')) {
-            Session::flash('error', 'Please insert username and password');
-            return back();
-        }
-
-        $info = get_settings();
-
-        if ($request->get('username') != $info['admin_id'] || $request->get('password') != $info['admin_pw']) {
-            Session::flash('error', 'Username or password wrong');
-            return back();
-        }
-
-        Session::flash('success', 'Succesfully login !');
-        return Redirect::route('applicant');
-    }
-
-    public function postLogout()
-    {
-        Session::flash('success', 'Succesfully logout !');
-        return Redirect::route('home');
-    }
-
     public function email()
     {
-        $emails = [
-            'accounting, banking and finance',
-            'business and management',
-            'communication and media',
-            'hospitality and tourism management',
-            'humanities and social sciences',
-            'information technology',
-            'law',
-        ];
+        $depts = Department::withEmail()->get();
     	
-        return view('email', compact('emails'));
+        return view('email', compact('depts'));
     }
 
     public function postEmail(Request $request)
