@@ -8,7 +8,7 @@
 @endif
 @if (Session::has('success'))
   <div class="ui success message">
-    <i class="close icon"></i>
+    <i class="remove circle close icon"></i>
     <div class="content">
       {{ Session::get('success') }}
     </div>
