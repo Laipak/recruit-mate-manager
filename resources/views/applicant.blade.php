@@ -2,7 +2,13 @@
 
 @section('content')
 <div class="column">
-  @include('message') 
+  @include('partials.message')
+  <div class="ui large header">
+    <i class="user icon"></i>
+    <div class="content">
+      Applicant List
+    </div>
+  </div>
   {!! Form::open(['route' => Route::getCurrentRoute()->getPath(), 'method' => 'GET', 'class' => 'ui padded stacked segment form']) !!}
   <div class="ui top free horizontal divider">
     Filter
@@ -14,8 +20,8 @@
         <i class="dropdown icon"></i>
         <span class="default text">Select a department</span>
         <div class="menu">
-          @foreach (Config::get('hook.courses') as $department => $courses)
-          <div class="item" data-value="{{ $department }}">
+          @foreach ($departments as $department)
+          <div class="item" data-value="{{ $department->id }}">
             {{ $department }}
           </div>
           @endforeach
@@ -28,15 +34,15 @@
         <i class="dropdown icon"></i>
         <span class="default text">or select a course</span>
         <div class="menu">
-          @foreach (Config::get('hook.courses') as $key => $courses)
-          <div class="divider"></div>
-          <div class="header">{{ $key }}</div>
-          <div class="divider"></div>
-          @foreach ($courses as $course)
-          <div class="item" data-value="{{ $course }}">
-            {{ $course }}
-          </div>
-          @endforeach
+          @foreach ($departments as $department)
+            <div class="divider"></div>
+            <div class="header">{{ $department }}</div>
+            <div class="divider"></div>
+            @foreach ($department->courses as $course)
+              <div class="item" data-value="{{ $course->id }}">
+                {{ $course }}
+              </div>
+            @endforeach
           @endforeach
         </div>
       </div>
@@ -52,7 +58,7 @@
   </div>
   <div class="field" style="overflow: hidden;">
     <button class="ui right floated small basic button">Filter</button>
-    <a href="{{ route('export') }}" class="ui right floated small basic button">
+    <a href="{{ route('applicant') }}" class="ui right floated small basic button">
       Reset
     </a>
   </div>
@@ -128,17 +134,19 @@
           </td>
           <td class="eight wide">
             <div class="ui bulleted list">
+              @if ($applicant->course1)
               <div class="item">
-                {{ $applicant->course_of_interest_1 }}
-              </div>
-              @if ($applicant->course_of_interest_2 && $applicant->course_of_interest_2 != 'None')
-              <div class="item">
-                {{ $applicant->course_of_interest_2 }}
+                {{ $applicant->course1 }}
               </div>
               @endif
-              @if ($applicant->course_of_interest_3 && $applicant->course_of_interest_3 != 'None')
+              @if ($applicant->course2)
               <div class="item">
-                {{ $applicant->course_of_interest_3 }}
+                {{ $applicant->course2 }}
+              </div>
+              @endif
+              @if ($applicant->course3)
+              <div class="item">
+                {{ $applicant->course3 }}
               </div>
               @endif
             </div>
