@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="column">
-    @include('message')
+    @include('partials.message')
     <div class="ui inverted huge top attached segment header">
       Setting
     </div>

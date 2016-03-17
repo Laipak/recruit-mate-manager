@@ -2,7 +2,7 @@
 
 @section('content')
    <div class="column">
-   		@include('message')
+   		@include('partials.message')
       	<div class="ui padded raised segment">
 			<div class="ui basic segment">
 				<div class="ui large dividing header">

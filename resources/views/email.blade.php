@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="column">
-    @include('message')
+    @include('partials.message')
     <div class="ui clearing padded raised segment">
       <div class="ui basic segment">
         <div class="ui large dividing header">
@@ -23,15 +23,18 @@
               <label>Receiver</label>
               <select name="receiver" class="ui fluid selection dropdown">
                 <option value="">Send to...</option>
-                @foreach ($emails as $email)
-                  <option value="{{ $email }}">
-                    {{ $email }} 
+                @foreach ($depts as $dept)
+                  <option value="{{ $dept->id }}">
+                    {{ $dept }} 
                     <small>
-                      ({{ get_settings($email) ? get_settings($email) : 'Not set' }})
+                      ({{ $dept->email }})
                     </small>
                   </option>
                 @endforeach
               </select>
+              <small>
+                *Only departments with email are selectable. Departments that email are not yet set will not be shown here.
+              </small>
             </div>
           </div>
           <button class="ui right floated teal button">
