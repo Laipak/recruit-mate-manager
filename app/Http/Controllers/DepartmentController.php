@@ -27,13 +27,18 @@ class DepartmentController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique:departments,name'
+            'name' => 'required|unique:departments,name',
+            'email' => 'email'
         ]);
 
         $dept = Department::create([
             'name' => $request->name,
-            'email' => $request->get('email', null)
         ]);
+
+        if ($request->has('email')) {
+            $dept->email = $request->email;
+            $dept->save();
+        }
 
         Session::flash('success', 'New department - ' . $dept . ' has been succesfully created !');
         return back();
