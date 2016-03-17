@@ -13,8 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserTableSeeder::class);
-
         // Seeds for departments and courses
         Department::firstOrCreate(['id' => 1, 'name' => 'Accounting, Banking and Finance']);
         Department::firstOrCreate(['id' => 2, 'name' => 'Business and Management']);
@@ -124,9 +122,10 @@ class DatabaseSeeder extends Seeder
         // Law
         Course::firstOrCreate(['id' => 86, 'name' => 'Bachelor of Commerce in Business Law', 'department_id' => 7]);
 
-
-
         // Applicant seeder
-        // factory(App\Applicant::class, 10)->firstOrCreate();
+        DB::table('applicants')->truncate();
+        factory(App\Applicant::class, 10)->create();
+
+        $this->call(UserSeeder::class);
     }
 }
