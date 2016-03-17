@@ -12,8 +12,8 @@
 */
 
 $factory->define(App\Applicant::class, function (Faker\Generator $faker) {
-    $courses = Config::get('hook.courses');
-
+    $courses = App\DepartmentCourse::get();
+    
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -30,9 +30,9 @@ $factory->define(App\Applicant::class, function (Faker\Generator $faker) {
         'course_type' => $faker->randomElement(['Full time', 'Part time']),
         'gpa' => $faker->randomFloat(2, 0, 4),
         'expected_start_date' => $faker->date(),
-        'course_of_interest_1' => $courses['accounting, banking and finance'][array_rand([0,1,2,3,4,5], 1)],
-        'course_of_interest_2' => $courses['business and management'][array_rand([0,1,2,3,4,5], 1)],
-        'course_of_interest_3' => $courses['hospitality and tourism management'][array_rand([0,1,2,3,4,5], 1)],
+        'course_of_interest_1' => $courses->random()->id,
+        'course_of_interest_2' => $courses->random()->id,
+        'course_of_interest_3' => $courses->random()->id,
         'device_name' => $faker->userName,
         'is_emailed' => $faker->boolean,
     ];
