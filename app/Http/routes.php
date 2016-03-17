@@ -9,11 +9,12 @@ Route::group(['namespace' => 'Auth'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
-	Route::get('/setting', 'MainController@setting')->name('setting');
-	Route::post('/post_change_pw', 'MainController@postChangePw')->name('post_change_pw');
-	Route::post('/post_update_emails', 'MainController@postUpdateEmails')->name('post_update_emails');
-	Route::post('/post_reset', 'MainController@postReset')->name('post_reset');
-
+	
+	Route::get('/setting', 'SettingController@index')->name('setting');
+	Route::post('/setting/update_pw', 'SettingController@updatePw')->name('setting_update_pw');
+	Route::post('/setting/update_email', 'SettingController@updateEmail')->name('setting_update_email');
+	Route::post('/setting/create_user', 'SettingController@createUser')->name('setting_create_user');
+	Route::post('/setting/reset', 'SettingController@reset')->name('setting_reset');
 
 	Route::get('/import', 'MainController@import')->name('import');
 	Route::post('/post_import', 'MainController@postImport')->name('post_import');

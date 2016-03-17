@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
 use App\DepartmentCourse as Course;
+use Illuminate\Http\Request;
+use App\Services\Operator;
+use App\Department;
 use App\Applicant;
 use App\Import;
-use App\Services\Operator;
-use Illuminate\Http\Request;
+use Sentinel;
 use Redirect;
 use Session;
 use File;
@@ -23,52 +24,6 @@ class MainController extends Controller
     public function index()
     {
     	return view('home');
-    }
-
-    public function setting()
-    {
-        $departments = Department::get();
-
-        return view('setting', compact('departments'));
-    }
-
-    public function postChangePw(Request $request)
-    {
-        $settings = get_settings();
-
-        if (!$request->has('new_pw') || !$request->has('new_pw_confirmation') || !$request->has('current_pw')) {
-            Session::flash('error', 'Please make sure all the fields are filled');
-            return back();
-        }
-
-        if ($request->get('current_pw') != $settings['admin_pw']) {
-            Session::flash('error', 'Wrong password');
-            return back();
-        }
-
-        if ($request->get('new_pw') != $request->get('new_pw_confirmation')) {
-            Session::flash('error', 'Unmatch new password');
-            return back();
-        }
-
-        set_setting('admin_pw', $request->get('new_pw'));
-
-        Session::flash('success', 'Password updated !');
-        return back();
-    }
-
-    public function postUpdateEmails(Request $request)
-    {
-        set_setting('accounting, banking and finance', $request->get('accounting'));
-        set_setting('business and management', $request->get('business'));
-        set_setting('communication and media', $request->get('communication'));
-        set_setting('hospitality and tourism management', $request->get('hospitality'));
-        set_setting('humanities and social sciences', $request->get('humanities'));
-        set_setting('information technology', $request->get('it'));
-        set_setting('law', $request->get('law'));
-
-        Session::flash('success', 'Department emails updated !');
-        return back();
     }
 
     public function email()
@@ -131,27 +86,5 @@ class MainController extends Controller
         }
         
         return Redirect::route('applicant');
-    }
-
-    public function manage()
-    {
-        return view('manage');
-    }
-
-    public function postReset(Request $request)
-    {
-        Applicant::query()->delete();
-
-        if ($request->reset_import) {
-            Import::query()->delete();
-        }
-
-        if ($request->reset_dept) {
-            Department::query()->delete();
-            Course::query()->delete();
-        }
-
-        Session::flash('success', 'All records has been removed from the database');
-        return back();
     }
 }
