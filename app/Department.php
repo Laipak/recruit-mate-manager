@@ -22,4 +22,9 @@ class Department extends Model
     {
         return $this->hasMany(DepartmentCourse::class);
     }
+
+    public function scopeWithEmail($query)
+    {
+        return $query->whereNotNull('email'); 
+    }
 }

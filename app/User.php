@@ -2,25 +2,24 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Cartalyst\Sentinel\Users\EloquentUser as SentinelModel;
 
-class User extends Authenticatable
+class User extends SentinelModel
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    protected $loginNames = ['email', 'username'];
+    protected $hidden = ['password', 'remember_token'];
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name',
+        'last_name',
+        'username', 
+        'email', 
+        'password',
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+
+    public function __tostring()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
 }
