@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\DepartmentCourse;
 use App\Applicant;
 use App\Import;
 use Redirect;
@@ -23,7 +24,14 @@ class Operator
 
 		// Set exporting applicants exported flag to true
 		foreach ($applicants as $applicant) {
-			$applicant->update(['is_exported' => true]);
+			$applicant->is_exported = 1;
+			$applicant->save();
+
+			// Show courses name instead of id
+			// Will be reverted back to id after exported (not saved)
+			$applicant->course_of_interest_1 = $applicant->course_of_interest_1 ? $applicant->course1 : '';
+			$applicant->course_of_interest_2 = $applicant->course_of_interest_2 ? $applicant->course2 : '';
+			$applicant->course_of_interest_3 = $applicant->course_of_interest_3 ? $applicant->course3 : '';
 		}
 
 		// Creating csv file
@@ -135,11 +143,12 @@ class Operator
 
 			// Check if this file is imported before
 			$filename = $file->getClientOriginalName();
-			$import = Import::where('filename', $filename)->first();
+			// $import = Import::where('filename', $filename)->first();
+			$import = [];
 
 			if (!$import) {
 				// Record this filename if it's a new import
-				Import::create(['filename' => $filename]);
+				// Import::create(['filename' => $filename]);
 
 				Excel::load($file, function($reader) {
 		            $reader->each( function($sheet) {
@@ -147,6 +156,27 @@ class Operator
 
 		                $applicant = new Applicant();
 		                $applicant->fill($attrs);
+
+		                $course_1 = null;
+		                $course_2 = null;
+		                $course_3 = null;
+
+		                if ($attrs['course_of_interest_1']) {
+		                	$course_1 = DepartmentCourse::where('name', $attrs['course_of_interest_1'])->first();
+		            	}
+
+		            	if ($attrs['course_of_interest_2']) {
+		                	$course_2 = DepartmentCourse::where('name', $attrs['course_of_interest_2'])->first();
+		            	}
+
+		            	if ($attrs['course_of_interest_3']) {
+		                	$course_3 = DepartmentCourse::where('name', $attrs['course_of_interest_3'])->first();
+		            	}
+
+		            	$applicant->course_of_interest_1 = $course_1 ? $course_1->id : null;
+		            	$applicant->course_of_interest_2 = $course_2 ? $course_2->id : null;
+		            	$applicant->course_of_interest_3 = $course_3 ? $course_3->id : null;
+
 		                $applicant->save();
 		            });
 		        });
