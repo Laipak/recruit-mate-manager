@@ -1,6 +1,6 @@
 @if (Session::has('error'))
     <div class="ui error message">
-    <i class="close icon"></i>
+    <i class="remove circle close icon"></i>
     <div class="content">
       {{ Session::get('error') }}
     </div>
