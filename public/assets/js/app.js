@@ -32,8 +32,16 @@ $(function() {
 	$('.ui.checkbox').checkbox();
 	$('.ui.dropdown').dropdown();
 	$('.ui.accordion').accordion();
+	
+	// Modal attach events
 	$('.ui.info.modal').modal('attach events', '.unhide.icon.caller', 'show');
 	$('.ui.reset.modal').modal('attach events', '#reset-db-btn', 'show');
+	$('.ui.remove.dept.modal').modal('attach events', '#close-dept-btn', 'show');
+	$('.ui.create.dept.modal').modal('attach events', '#create-dept-btn', 'show');
+	$('.ui.create.course.modal').modal('attach events', '#create-course-btn', 'show');
+	$('.ui.update.course.modal').modal('attach events', '.update.course.button', 'show');
+	$('.ui.remove.course.modal').modal('attach events', '.remove.course.button', 'show');
+	
 	$('*[data-content]').popup({
 		position: 'top center'
 	});
@@ -219,4 +227,18 @@ $('.unhide.icon.caller').on('click', function () {
 	} else {
 		$table.find('td.emailed i').attr('class', 'inverted red circular remove icon');
 	}
+});
+
+$('.update.course.button').on('click', function () {
+	$this = $(this);
+	
+	$('.ui.update.course.modal input[name=id]').val($(this).data('id'));
+	$('.ui.update.course.modal input[name=name]').val($(this).data('name'));
+});
+
+$('.remove.course.button').on('click', function () {
+	$this = $(this);
+	
+	$('.ui.remove.course.modal input[name=id]').val($(this).data('id'));
+	$('.ui.remove.course.modal strong.name').text($(this).data('name'));
 });

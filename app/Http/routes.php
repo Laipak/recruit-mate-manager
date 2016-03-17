@@ -27,10 +27,9 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::post('/dept/update/{dept}', 'DepartmentController@update')->name('dept_update');
 	Route::post('/dept/remove/{dept}', 'DepartmentController@remove')->name('dept_remove');
 
-	Route::get('/dept/course', 'DepartmentController@course')->name('course');
-	Route::get('/dept/course/create', 'DepartmentController@createCourse')->name('course_create');
-	Route::get('/dept/course/update', 'DepartmentController@updateCourse')->name('course_update');
-	Route::get('/dept/course/remove', 'DepartmentController@removeCourse')->name('course_remove');
+	Route::post('/dept/course/create/{dept}', 'DepartmentController@createCourse')->name('course_create');
+	Route::post('/dept/course/update', 'DepartmentController@updateCourse')->name('course_update');
+	Route::post('/dept/course/remove', 'DepartmentController@removeCourse')->name('course_remove');
 
 	Route::get('/email', 'MainController@email')->name('email');
 	Route::post('/post_email', 'MainController@postEmail')->name('post_email');

@@ -3,6 +3,7 @@
 @section('content')
   <div class="column">
     @include('partials.message')
+    @include('partials.errors')
     <div class="ui large header">
       <i class="building icon"></i>      
       <div class="content">
@@ -39,9 +40,9 @@
           <div class="ui left floated header">
             Courses ({{ $dept->courses->count() }})
           </div>
-          <div class="ui right floated compact teal icon labeled button">
+          <div id="create-course-btn" class="ui right floated compact teal icon labeled button">
             <i class="plus icon"></i>
-            Create Course
+            Create New Course
           </div>
         </div>
         <div class="ui bottom attached segment" style="padding: 0">
@@ -52,8 +53,31 @@
                   <td>
                     {{ $course }}
                   </td>
+                  <td class="right aligned">
+                    <div class="ui blue update course compact icon button" data-content="Edit" data-variation="inverted" data-position="left center" data-id="{{ $course->id }}" data-name="{{ $course }}">
+                      <i class="write icon"></i>
+                    </div>
+                    <div class="ui red remove course compact icon button" data-content="Remove" data-variation="inverted" data-position="right center" data-id="{{ $course->id }}" data-name="{{ $course }}">
+                      <i class="trash icon"></i>
+                    </div>
+                  </td>
                 </tr>
               @empty
+                <tr>
+                  <td colspan="2" class="center aligned">
+                    <div class="ui basic padded segment">
+                      <div class="ui small disabled icon header">
+                        <i class="info circle icon"></i>
+                        <div class="content">
+                          No courses found
+                          <div class="sub header">
+                            Create new course ?
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               @endforelse
             </tbody>
           </table>
@@ -62,7 +86,7 @@
     </div>
   </div>
   
-  {!! Form::open(['route' => ['dept_remove', $dept->id], 'class' => 'ui small remove modal']) !!}
+  {!! Form::open(['route' => ['dept_remove', $dept->id], 'class' => 'ui small remove dept modal']) !!}
     <div class="header">
       <i class="inverted red circular warning icon"></i>
       Close Department
@@ -74,6 +98,60 @@
     <div class="actions">
       <div class="ui cancel button">Hold on</div>
       <button class="ui approve red button">Close department</button>
+    </div>
+  {!! Form::close() !!}
+
+  {!! Form::open(['route' => ['course_create', $dept->id], 'class' => 'ui small create course modal']) !!}
+    <div class="header">
+      Create New Course
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <div class="required field">
+          <label>Name</label>
+          {!! Form::text('name', '', ['placeholder' => "Course name"]) !!}
+          <small>
+            *This course will be created under the department of <strong>{{ $dept }}</strong>.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui cancel button">Hold on</div>
+      <button class="ui approve teal button">Create</button>
+    </div>
+  {!! Form::close() !!}
+
+  {!! Form::open(['route' => 'course_update', 'class' => 'ui small update course modal']) !!}
+    <div class="header">
+      Update Course
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <input type="hidden" name="id"></input>
+        <div class="required field">
+          <label>Name</label>
+          {!! Form::text('name', '', ['placeholder' => "Course name"]) !!}
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui cancel button">Hold on</div>
+      <button class="ui approve teal button">Update</button>
+    </div>
+  {!! Form::close() !!}
+
+  {!! Form::open(['route' => 'course_remove', 'class' => 'ui small remove course modal']) !!}
+    <div class="header">
+      Remove Course
+    </div>
+    <div class="content">
+      <input type="hidden" name="id"></input>
+      Are you sure you want to remove this course - <strong class="name"></strong> ?
+    </div>
+    <div class="actions">
+      <div class="ui cancel button">Hold on</div>
+      <button class="ui approve red button">Remove</button>
     </div>
   {!! Form::close() !!}
 @stop

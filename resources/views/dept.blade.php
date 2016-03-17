@@ -3,6 +3,7 @@
 @section('content')
   <div class="column">
     @include('partials.message')
+    @include('partials.errors')
     <div class="ui basic clearing segment" style="padding: 0">
       <div class="ui left floated large header" style="margin-bottom: 0">
         <i class="building icon"></i>
@@ -10,7 +11,7 @@
           Department list
         </div>
       </div>
-      <div class="ui right floated teal icon labeled button">
+      <div id="create-dept-btn" class="ui right floated teal icon labeled button">
         <i class="add icon"></i>
         Create new department
       </div>
@@ -68,4 +69,28 @@
       </table>
     </div>
   </div>
+
+  {!! Form::open(['route' => 'dept_create', 'class' => 'ui create dept small modal']) !!}
+    <div class="header">
+      Create New Department
+    </div>
+    <div class="content">
+      <div class="ui form">
+        <div class="two fields">
+          <div class="required field">
+            <label>Name</label>
+            {!! Form::text('name', '', ['placeholder' => "Department's name"]) !!}
+          </div>
+          <div class="field">
+            <label>Email</label>
+            {!! Form::email('email', '', ['placeholder' => "Department's email"]) !!}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="ui cancel button">Hold on</div>
+      <button class="ui approve teal button">Create</button>
+    </div>
+  {!! Form::close() !!}
 @stop
