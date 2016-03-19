@@ -20,7 +20,7 @@ class ApplicantController extends Controller
         $departments = Department::with('courses')->get();
 
         // Setup model query builder
-        $query = Applicant::query();
+        $query = Applicant::query()->with('course1')->with('course2')->with('course3');
 
         // Query for exported applicant
         if ($request->has('is_exported') && is_numeric($request->get('is_exported'))) {

@@ -41,19 +41,26 @@ class MainController extends Controller
             
             foreach ($files as $file) {
                 if (!$file->isValid() || pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION) != 'csv') {
-                    Session::flash('error', 'Invalid file extension');
+                    Session::flash('error', 'Invalid file extension !');
                     return back();
                 }
             }
 
-            if ($this->operator->sendEmailWithAttachment($files, $request->receiver)) {
+            $dept = Department::find($request->receiver);
+
+            if (!$dept) {
+                Session::flash('error', 'Receiver not found !');
+                return back();
+            }
+
+            if ($this->operator->sendEmailWithAttachment($files, $dept)) {
                 Session::flash('success', 'Succesfully emailed to the receiver !');
             } else {
                 Session::flash('error', 'File format unmatch');
             }
             
         } else {
-            Session::flash('error', 'Invalid input');
+            Session::flash('error', 'Invalid input !');
         }
 
         return back();

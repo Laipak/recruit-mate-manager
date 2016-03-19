@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\DepartmentCourse;
+use App\Department;
 use App\Applicant;
 use App\Import;
 use Redirect;
@@ -102,9 +103,8 @@ class Operator
 
 		foreach ($applicants as $applicant) {
 
-			Mail::send('email.notification', ['applicant' => $applicant], function ($message) {
-				$message->from('DONOTREPLY@recruitmate.sg', 'Recruit Mate');
-	            $message->to('park8lai@gmail.com')->subject('Recruit Mate Notification');
+			Mail::send('email.notification', ['applicant' => $applicant], function ($message) use ($applicant) {
+	            $message->to($applicant->email)->subject('Recruit Mate Notification');
 	        });
 
 	        $applicant->update(['is_emailed' => true]);
@@ -114,13 +114,12 @@ class Operator
 		return true;
 	}
 
-	public function sendEmailWithAttachment($files, $receiver)
+	public function sendEmailWithAttachment($files, Department $dept)
 	{	
 		$temps = [];
 		
-		Mail::send('email.department', ['department' => $receiver], function($message) use ($files, $receiver, $temps) {
-			$message->from('DONOTREPLY@recruitmate.sg', 'Recruit Mate');
-	        $message->to(get_settings($receiver))->subject('Recruit Mate Export');
+		Mail::send('email.department', ['department' => $dept], function($message) use ($files, $dept, &$temps) {
+	        $message->to($dept->email)->subject('Recruit Mate Export (Manually)');
 		    
 		    foreach ($files as $file) {
 				$file = $file->move(storage_path(), $file->getClientOriginalName());
@@ -130,9 +129,10 @@ class Operator
 			}	
 		});
 
-		// foreach ($temps as $temp) {
-		// 	File::delete(storage_path().'/'.$temp);
-		// }
+		// Remove temp files
+		foreach ($temps as $temp) {
+			File::delete(storage_path().'/'.$temp);
+		}
 
 		return true;
 	}
