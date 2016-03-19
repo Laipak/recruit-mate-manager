@@ -194,7 +194,7 @@ $('.unhide.icon.caller').on('click', function () {
 	$table.find('td.email').text(applicant.email);
 	$table.find('td.mobile').text(applicant.mobile);
 	$table.find('td .addr1').text(applicant.address_line_1);
-	$table.find('td .addr2').text(applicant.address_line_1);
+	$table.find('td .addr2').text(applicant.address_line_2);
 	$table.find('td .addr3').text(applicant.postal + ", " + applicant.address_country);
 	$table.find('td .ep').text(applicant.english_proficiency);
 	$table.find('td .gpa').text(applicant.gpa);
@@ -204,12 +204,14 @@ $('.unhide.icon.caller').on('click', function () {
 	$list = $table.find('td .coi.list');
 	$list.empty();
 	
-	$list.append("<li>" + applicant.course_of_interest_1 + "</li>");
+	if (applicant.course_of_interest_1 && applicant.course_of_interest_1 != 'None') {
+		$list.append("<li>" + applicant.course1.name + "</li>");
+	}
 	if (applicant.course_of_interest_2 && applicant.course_of_interest_2 != 'None') {
-		$list.append("<li>" + applicant.course_of_interest_2 + "</li>");
+		$list.append("<li>" + applicant.course2.name + "</li>");
 	}
 	if (applicant.course_of_interest_3 && applicant.course_of_interest_3 != 'None') {
-		$list.append("<li>" + applicant.course_of_interest_3 + "</li>");
+		$list.append("<li>" + applicant.course3.name + "</li>");
 	}
 	
 	$table.find('td .enquiry').text(applicant.enquiry);
