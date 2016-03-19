@@ -35,9 +35,18 @@
 			            	</div>
 			          	</div>
 			          	<div class="field">
-			          		{!! Form::submit('Login', ['class' => 'ui right floated teal button']) !!}
+			          		{!! Form::submit('Login', ['class' => 'ui large right floated teal button']) !!}
 			          	</div>
 			      	{!! Form::close() !!}
+	      		</div>
+	      		<div class="ui divider"></div>
+	      		<div class="ui basic segment">
+	       			<a href="{{ asset('assets/download/recruitmate_v8.apk') }}" class="ui yellow icon labeled button">
+	       				<i class="download icon"></i>
+	       				<div class="content">
+		       				Download Recruit Mate Android App (.apk)	       					
+	       				</div>
+	       			</a>
 	      		</div>
 	       	</div>
    		</div>

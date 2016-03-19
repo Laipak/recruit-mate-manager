@@ -45,6 +45,17 @@ $(function() {
 	$('*[data-content]').popup({
 		position: 'top center'
 	});
+	$('.android.icon.link').popup({
+	    inline   : true,
+	    hoverable: true,
+	    variation: 'inverted',
+	    position : 'bottom center',
+	    delay: {
+	      show: 100,
+	      hide: 300
+	    }
+	 });
+
 	$('.ui.message .close').on('click', function() {
     	$(this).closest('.message').transition('fade');
   	});

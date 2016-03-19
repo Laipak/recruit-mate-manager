@@ -19,6 +19,15 @@
     Mail
   </a>
   <div class="right menu">
+    <div class="borderless item">
+      <i class="large olive android icon link"></i>
+      <div class="ui flowing download android popup">
+        <a href="{{ asset('assets/download/recruitmate_v8.apk') }}" class="ui yellow icon labeled button">
+          <i class="download icon"></i>
+          Download Recruit Mate Android App (.apk)
+        </a>
+      </div>
+    </div>
     <div class="ui dropdown item">
       Hello, {{ Sentinel::getUser() }}
       @if (Sentinel::inRole('admin'))
