@@ -2,9 +2,8 @@
 <html>
     <head>
         <title>Recruit Mate Manager</title>
-
-        <link href="{{ URL::asset('assets/resources/Semantic-UI/semantic.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ URL::asset('assets/css/app.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/resources/Semantic-UI/semantic.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="wrapper">
@@ -22,8 +21,8 @@
         </div>
 
 
-        <script src="{{ URL::asset('assets/resources/Jquery/jquery-2.2.0.min.js') }}"></script>
-        <script src="{{ URL::asset('assets/resources/Semantic-UI/semantic.min.js') }}"></script>
-        <script src="{{ URL::asset('assets/js/app.js') }}"></script>
+        <script src="{{ asset('assets/resources/Jquery/jquery-2.2.0.min.js') }}"></script>
+        <script src="{{ asset('assets/resources/Semantic-UI/semantic.min.js') }}"></script>
+        <script src="{{ asset('assets/js/app.js') }}"></script>
     </body>
 </html>
