@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>Recruit Mate Manager</title>
+        <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
         <link href="{{ asset('assets/resources/Semantic-UI/semantic.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css">
     </head>
